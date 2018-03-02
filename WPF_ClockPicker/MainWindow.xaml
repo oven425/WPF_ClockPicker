@@ -8,6 +8,6 @@
         xmlns:src="clr-namespace:WPF_ClockPicker" Background="Gray"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        <src:QClockPicker/>
+        <src:QClockPicker Height="300" Width="300"/>
     </Grid>
 </Window>
