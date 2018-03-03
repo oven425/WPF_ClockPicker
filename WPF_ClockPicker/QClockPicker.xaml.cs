@@ -129,7 +129,14 @@ namespace WPF_ClockPicker
             {
                 angle = 180.0 - angle;
             }
-            System.Diagnostics.Trace.WriteLine(string.Format("angle:{2}", x,y, angle));
+            angle = angle - 90;
+            //System.Diagnostics.Trace.WriteLine(string.Format("angle:{2}", x,y, angle));
+
+            double radain = Math.PI * angle / 180;
+            float x1 = (float)(Math.Cos(radain) * w);
+            float y1 = (float)(Math.Sin(radain) * h);
+            Canvas.SetLeft(ellipse_min_select, x1+w-15);
+            Canvas.SetTop(ellipse_min_select, y1+h-15);
         }
 
         double GetAngle(double x, double y)

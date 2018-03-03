@@ -73,7 +73,7 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
         <Canvas x:Name="canvas">
-            <Ellipse Width="30" Height="30" Fill="LightGreen"/>
+            <Ellipse x:Name="ellipse_min_select" Width="30" Height="30" Fill="LightGreen"/>
 
         </Canvas>
         <Line Stroke="LightBlue"/>
