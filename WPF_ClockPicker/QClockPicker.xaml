@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_ClockPicker"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
-             d:DesignHeight="500" d:DesignWidth="500"
-             SizeChanged="UserControl_SizeChanged">
+             d:DesignHeight="500" d:DesignWidth="500">
     <Grid x:Name="grid">
         <Ellipse x:Name="ellipse" Fill="White" MouseMove="ellipse_MouseMove"/>
         <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Collapsed">

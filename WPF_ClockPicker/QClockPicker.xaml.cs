@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace WPF_ClockPicker
 {
@@ -110,56 +111,40 @@ namespace WPF_ClockPicker
             }
         }
 
-        public double getAngle(float x, float y)
-        {
-            if (y == 0 && x >= 0)
-            {
-                return 0;
-            }
-            else if (x == 0 && y >= 0)
-            {
-                return 90;
-            }
-            else if (y == 0 && x < 0)
-            {
-                return 180;
-            }
-            else if (x == 0 && y < 0)
-            {
-                return 270;
-            }
-
-            double sA = Math.Asin(Math.Abs(y) / Math.Sqrt(x * x + y * y));
-
-            if (x >= 0 && y >= 0)
-            {
-                return sA;
-            }
-            else if (x <= 0 && y >= 0)
-            {
-                return Math.PI - sA;
-            }
-            else if (x <= 0 && y <= 0)
-            {
-                return Math.PI + sA;
-            }
-            else if (x >= 0 && y <= 0)
-            {
-                return Math.PI + Math.PI / 2 + Math.Asin(Math.Abs(x) / Math.Sqrt(x * x + y * y));
-            }
-            return 0;
-        }
-
-        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            //this.Calac();
-        }
-
         private void ellipse_MouseMove(object sender, MouseEventArgs e)
         {
             Point pt = e.GetPosition(this.ellipse);
-            double dd = this.getAngle((int)pt.X, (int)pt.Y);
-            System.Diagnostics.Trace.WriteLine(dd);
+            double w = this.ellipse.ActualWidth/2;
+            double h = this.ellipse.ActualHeight/2;
+            double x = pt.X-w;
+            double y =  pt.Y-h;
+            //double dd = this.getAngle((int)x, (int)y);
+            double radians = Math.Atan2(x, y);
+            double  angle = radians * (180 / Math.PI);
+            if(angle > 0)
+            {
+                angle = 180.0 - angle;
+            }
+            else
+            {
+                angle = 180.0 - angle;
+            }
+            System.Diagnostics.Trace.WriteLine(string.Format("angle:{2}", x,y, angle));
+        }
+
+        double GetAngle(double x, double y)
+        {
+            double radians = Math.Atan2(x, y);
+            double angle = radians * (180 / Math.PI);
+            if (angle > 0)
+            {
+                angle = 180.0 - angle;
+            }
+            else
+            {
+                angle = 180.0 - angle;
+            }
+            return angle;
         }
     }
 
@@ -168,17 +153,35 @@ namespace WPF_ClockPicker
         double m_Top;
         double m_Left;
         public int Value { set; get; }
-
+        bool m_IsSelected;
 
         public double Left { set { this.m_Left = value; this.Update("Left"); } get { return this.m_Left; } }
         public double Top { set { this.m_Top = value; this.Update("Top"); } get { return this.m_Top; } }
+        public bool IsSelected { set { this.m_IsSelected = value; this.Update("IsSelected"); } get { return this.m_IsSelected; } }
         public event PropertyChangedEventHandler PropertyChanged;
-        void Update(string name)
+        void Update(string name) { if (this.PropertyChanged != null) { this.PropertyChanged(this, new PropertyChangedEventArgs(name)); } }
+    }
+
+    public class CQBool2Brush:IValueConverter
+    {
+        public Brush True { set; get; }
+        public Brush False { set; get; }
+
+        public CQBool2Brush()
         {
-            if(this.PropertyChanged != null)
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
+            this.True = Brushes.LightGreen;
+            this.False = null;
+        }
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            bool bb = (bool)value;
+            return bb == true ? this.True : this.False;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
         }
     }
 }
