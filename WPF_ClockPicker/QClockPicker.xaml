@@ -15,14 +15,13 @@
         <Ellipse Fill="LightGreen" Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False"/>
         <Line x:Name="line" Stroke="LightGreen" StrokeThickness="3" IsHitTestVisible="False"/>
         <Canvas x:Name="canvas">
-            <Ellipse x:Name="ellipse_min_select" Width="30" Height="30" Fill="LightGreen" Visibility="Visible" IsHitTestVisible="False"/>
-
+            <Ellipse x:Name="ellipse_min_select" Fill="LightGreen" Visibility="Visible" IsHitTestVisible="False"/>
         </Canvas>
         <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Collapsed">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
-                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="30" Height="30"/>
+                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
                         <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
@@ -44,7 +43,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
-                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="30" Height="30"/>
+                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
                         <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
@@ -65,8 +64,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
-                        <Ellipse Fill="LightGreen" Width="30" Height="30"/>
-                        <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Ellipse Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
+                        <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -24,5 +24,18 @@ namespace WPF_ClockPicker
         {
             InitializeComponent();
         }
+
+        private void checkbox_type_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.checkbox_type.IsChecked == true)
+            {
+                this.clock_picker.ClockPickOperateType = QClockPicker.QClockPick_OperateTypes.Min;
+            }
+            else
+            {
+                this.clock_picker.ClockPickOperateType = QClockPicker.QClockPick_OperateTypes.Hour;
+            }
+            
+        }
     }
 }

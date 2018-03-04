@@ -12,7 +12,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="{Binding SelectedTime, ElementName=clock_picker}"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBox Text="{Binding SelectedTime, ElementName=clock_picker, UpdateSourceTrigger=PropertyChanged}"/>
+            <CheckBox x:Name="checkbox_type" Click="checkbox_type_Click"></CheckBox>
+        </StackPanel>
+        
         <src:QClockPicker Grid.Row="1" x:Name="clock_picker" Height="300" Width="300"/>
     </Grid>
 </Window>
