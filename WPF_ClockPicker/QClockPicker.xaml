@@ -5,14 +5,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WPF_ClockPicker"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
+             xmlns:src="clr-namespace:WPF_ClockPicker"
              d:DesignHeight="500" d:DesignWidth="500">
+    <UserControl.Resources>
+        <src:CQBool2Brush x:Key="bool2brush"/>
+    </UserControl.Resources>
     <Grid x:Name="grid">
-        <Ellipse x:Name="ellipse" Fill="White" MouseMove="ellipse_MouseMove"/>
-        <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Collapsed">
+        <Ellipse x:Name="ellipse" Fill="White" MouseMove="ellipse_MouseMove" MouseLeftButtonUp="ellipse_MouseLeftButtonUp" MouseLeftButtonDown="ellipse_MouseLeftButtonDown"/>
+        <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Visible">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Ellipse Fill="LightGreen" Width="30" Height="30"/>
+                    <Grid MouseLeftButtonUp="ellipse_MouseLeftButtonUp" Background="Transparent">
+                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="30" Height="30"/>
                         <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
@@ -30,11 +34,11 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <ItemsControl x:Name="itemscontrol_hour_pm" Visibility="Collapsed">
+        <ItemsControl x:Name="itemscontrol_hour_pm" Visibility="Visible">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Ellipse Fill="LightGreen" Width="30" Height="30"/>
+                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="30" Height="30"/>
                         <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
@@ -51,7 +55,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <ItemsControl x:Name="itemscontrol_min">
+        <ItemsControl x:Name="itemscontrol_min" Visibility="Collapsed">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -73,7 +77,7 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
         <Canvas x:Name="canvas">
-            <Ellipse x:Name="ellipse_min_select" Width="30" Height="30" Fill="LightGreen"/>
+            <Ellipse x:Name="ellipse_min_select" Width="30" Height="30" Fill="LightGreen" Visibility="Collapsed"/>
 
         </Canvas>
         <Line Stroke="LightBlue"/>

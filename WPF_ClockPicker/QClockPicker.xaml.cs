@@ -113,30 +113,33 @@ namespace WPF_ClockPicker
 
         private void ellipse_MouseMove(object sender, MouseEventArgs e)
         {
-            Point pt = e.GetPosition(this.ellipse);
-            double w = this.ellipse.ActualWidth/2;
-            double h = this.ellipse.ActualHeight/2;
-            double x = pt.X-w;
-            double y =  pt.Y-h;
-            //double dd = this.getAngle((int)x, (int)y);
-            double radians = Math.Atan2(x, y);
-            double  angle = radians * (180 / Math.PI);
-            if(angle > 0)
+            if(this.m_IsStartDrag == true)
             {
-                angle = 180.0 - angle;
-            }
-            else
-            {
-                angle = 180.0 - angle;
-            }
-            angle = angle - 90;
-            //System.Diagnostics.Trace.WriteLine(string.Format("angle:{2}", x,y, angle));
 
-            double radain = Math.PI * angle / 180;
-            float x1 = (float)(Math.Cos(radain) * w);
-            float y1 = (float)(Math.Sin(radain) * h);
-            Canvas.SetLeft(ellipse_min_select, x1+w-15);
-            Canvas.SetTop(ellipse_min_select, y1+h-15);
+            }
+            //Point pt = e.GetPosition(this.ellipse);
+            //double w = this.ellipse.ActualWidth/2;
+            //double h = this.ellipse.ActualHeight/2;
+            //double x = pt.X-w;
+            //double y =  pt.Y-h;
+            ////double dd = this.getAngle((int)x, (int)y);
+            //double radians = Math.Atan2(x, y);
+            //double  angle = radians * (180 / Math.PI);
+            //if(angle > 0)
+            //{
+            //    angle = 180.0 - angle;
+            //}
+            //else
+            //{
+            //    angle = 180.0 - angle;
+            //}
+            //angle = angle - 90;
+
+            //double radain = Math.PI * angle / 180;
+            //float x1 = (float)(Math.Cos(radain) * w);
+            //float y1 = (float)(Math.Sin(radain) * h);
+            //Canvas.SetLeft(ellipse_min_select, x1+w-15);
+            //Canvas.SetTop(ellipse_min_select, y1+h-15);
         }
 
         double GetAngle(double x, double y)
@@ -151,6 +154,49 @@ namespace WPF_ClockPicker
             {
                 angle = 180.0 - angle;
             }
+            return angle;
+        }
+        bool m_IsStartDrag = false;
+        private void ellipse_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            this.m_IsStartDrag = true;
+            this.ellipse.CaptureMouse();
+        }
+
+        private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if(this.m_IsStartDrag == true)
+            {
+                this.m_IsStartDrag = false;
+                double angle = this.GetAngle(this.ellipse, e.GetPosition(this.ellipse));
+                angle = angle - 180;
+                double aa = Math.Abs(angle / 30);
+                this.m_Hours_AM[(int)aa].IsSelected = true;
+                this.ellipse.ReleaseMouseCapture();
+            }
+        }
+
+
+        double GetAngle(FrameworkElement element, Point pt)
+        {
+            //Point pt = e.GetPosition(this.ellipse);
+            double w = this.ellipse.ActualWidth / 2;
+            double h = this.ellipse.ActualHeight / 2;
+            double x = pt.X - w;
+            double y = pt.Y - h;
+            //double dd = this.getAngle((int)x, (int)y);
+            double radians = Math.Atan2(x, y);
+            double angle = radians * (180 / Math.PI);
+            if (angle > 0)
+            {
+                angle = 180.0 - angle;
+            }
+            else
+            {
+                angle = 180.0 - angle;
+            }
+            //angle = angle - 90;
+
             return angle;
         }
     }
