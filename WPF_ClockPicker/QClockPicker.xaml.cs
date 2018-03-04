@@ -210,13 +210,44 @@ namespace WPF_ClockPicker
             angle = angle - 90;
 
             double radain = Math.PI * angle / 180;
-            float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width/2));
-            float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2-this.m_Hieght/2));
-            Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - 15);
-            Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - 15);
+            
+            switch (this.ClockPickOperateType)
+            {
+                case QClockPick_OperateTypes.Min:
+                    {
+                        float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
+                        float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
+                        Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+                        Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+                        this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+                        this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+                    }
+                    break;
+                case QClockPick_OperateTypes.Hour:
+                default:
+                    {
+                        if (this.SelectedTime.Hours > 12)
+                        {
+                            float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
+                            float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
+                            Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+                            Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+                            this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+                            this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+                        }
+                        else
+                        {
+                            float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
+                            float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
+                            Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+                            Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+                            this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+                            this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+                        }
+                    }
+                    break;
+            }
 
-            this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
-            this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
         }
 
         private void ellipse_MouseMove(object sender, MouseEventArgs e)
