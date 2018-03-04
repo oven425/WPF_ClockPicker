@@ -6,8 +6,13 @@
         xmlns:local="clr-namespace:WPF_ClockPicker"
         mc:Ignorable="d"
         xmlns:src="clr-namespace:WPF_ClockPicker" Background="Gray"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="500" Width="500">
     <Grid>
-        <src:QClockPicker Height="300" Width="300"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="{Binding SelectedTime, ElementName=clock_picker}"/>
+        <src:QClockPicker Grid.Row="1" x:Name="clock_picker" Height="300" Width="300"/>
     </Grid>
 </Window>

@@ -13,8 +13,12 @@
     <Grid x:Name="grid">
         <Ellipse x:Name="ellipse" Fill="White" MouseMove="ellipse_MouseMove" MouseLeftButtonUp="ellipse_MouseLeftButtonUp" MouseLeftButtonDown="ellipse_MouseLeftButtonDown"/>
         <Ellipse Fill="LightGreen" Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False"/>
-        <Line x:Name="line" Stroke="LightGreen" StrokeThickness="3" X1="10" Y1="10" X2="100" Y2="100"/>
-        <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Visible">
+        <Line x:Name="line" Stroke="LightGreen" StrokeThickness="3" IsHitTestVisible="False"/>
+        <Canvas x:Name="canvas">
+            <Ellipse x:Name="ellipse_min_select" Width="30" Height="30" Fill="LightGreen" Visibility="Visible" IsHitTestVisible="False"/>
+
+        </Canvas>
+        <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Collapsed">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
@@ -36,7 +40,7 @@
             </ItemsControl.ItemsPanel>
         </ItemsControl>
 
-        <ItemsControl x:Name="itemscontrol_hour_pm" Visibility="Visible">
+        <ItemsControl x:Name="itemscontrol_hour_pm" Visibility="Collapsed">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
@@ -57,10 +61,10 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <ItemsControl x:Name="itemscontrol_min" Visibility="Collapsed">
+        <ItemsControl x:Name="itemscontrol_min" Visibility="Visible">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid IsHitTestVisible="False">
                         <Ellipse Fill="LightGreen" Width="30" Height="30"/>
                         <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
@@ -78,10 +82,7 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <Canvas x:Name="canvas">
-            <Ellipse x:Name="ellipse_min_select" Width="30" Height="30" Fill="LightGreen" Visibility="Collapsed"/>
-
-        </Canvas>
+        
         <Line Stroke="LightBlue"/>
 
         
