@@ -53,8 +53,11 @@ namespace WPF_ClockPicker
                 radus = this.ellipse.ActualWidth / 2;
                 this.Calac_Min(radus, this.m_Mins);
                 this.itemscontrol_min.ItemsSource = this.m_Mins;
-                
 
+                double center_x = this.ActualWidth / 2;
+                double center_y = this.ActualHeight / 2;
+                this.line.X1 = center_x;
+                this.line.Y1 = center_y;
             }
             
             
@@ -113,10 +116,14 @@ namespace WPF_ClockPicker
 
         private void ellipse_MouseMove(object sender, MouseEventArgs e)
         {
+            Point pt = e.GetPosition(this.ellipse);
             if(this.m_IsStartDrag == true)
             {
 
             }
+            this.line.X2 = pt.X;
+            this.line.Y2 = pt.Y;
+            System.Diagnostics.Trace.WriteLine(this.GetDistane(this.ellipse, e.GetPosition(this.ellipse)));
             //Point pt = e.GetPosition(this.ellipse);
             //double w = this.ellipse.ActualWidth/2;
             //double h = this.ellipse.ActualHeight/2;
@@ -169,11 +176,30 @@ namespace WPF_ClockPicker
             {
                 this.m_IsStartDrag = false;
                 double angle = this.GetAngle(this.ellipse, e.GetPosition(this.ellipse));
-                angle = angle - 180;
-                double aa = Math.Abs(angle / 30);
-                this.m_Hours_AM[(int)aa].IsSelected = true;
+                System.Diagnostics.Trace.WriteLine(angle);
+                int dd = (int)(angle / 30.0);
+                System.Diagnostics.Trace.WriteLine(string.Format("{0}  {1}", angle, dd));
+
+                dd = dd - 3;
+                if(dd <0)
+                {
+                    dd = this.m_Hours_AM.Count + dd;
+                }
+                this.m_Hours_AM[dd].IsSelected = true;
+                
                 this.ellipse.ReleaseMouseCapture();
             }
+        }
+
+        double GetDistane(FrameworkElement element, Point pt)
+        {
+            double len = 0;
+            double center_x = element.ActualWidth / 2;
+            double center_y = element.ActualHeight / 2;
+            double d_x = Math.Pow((pt.X - center_x), 2);
+            double d_y = Math.Pow((pt.Y - center_y), 2);
+            len = Math.Sqrt(d_x + d_y);
+            return len;
         }
 
 

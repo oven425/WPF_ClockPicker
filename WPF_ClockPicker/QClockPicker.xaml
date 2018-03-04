@@ -12,10 +12,12 @@
     </UserControl.Resources>
     <Grid x:Name="grid">
         <Ellipse x:Name="ellipse" Fill="White" MouseMove="ellipse_MouseMove" MouseLeftButtonUp="ellipse_MouseLeftButtonUp" MouseLeftButtonDown="ellipse_MouseLeftButtonDown"/>
+        <Ellipse Fill="LightGreen" Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+        <Line x:Name="line" Stroke="LightGreen" StrokeThickness="3" X1="10" Y1="10" X2="100" Y2="100"/>
         <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Visible">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid MouseLeftButtonUp="ellipse_MouseLeftButtonUp" Background="Transparent">
+                    <Grid IsHitTestVisible="False">
                         <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="30" Height="30"/>
                         <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
@@ -37,7 +39,7 @@
         <ItemsControl x:Name="itemscontrol_hour_pm" Visibility="Visible">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid IsHitTestVisible="False">
                         <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="30" Height="30"/>
                         <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
