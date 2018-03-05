@@ -377,6 +377,11 @@ namespace WPF_ClockPicker
                     case QClockPick_OperateTypes.Hour:
                     default:
                         {
+                            angle = angle + 15;
+                            if (angle > 360)
+                            {
+                                angle = 360;
+                            }
                             double hour_1 = angle * 12 / 360;
                             int hour = (int)hour_1;
                             if (hour > 0)

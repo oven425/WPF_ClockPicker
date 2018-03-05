@@ -11,18 +11,18 @@
         <src:CQBool2Brush x:Key="bool2brush"/>
     </UserControl.Resources>
     <Grid x:Name="grid">
-        <Ellipse x:Name="ellipse" Fill="White" MouseMove="ellipse_MouseMove" MouseLeftButtonUp="ellipse_MouseLeftButtonUp" MouseLeftButtonDown="ellipse_MouseLeftButtonDown"/>
-        <Ellipse Fill="LightGreen" Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False"/>
-        <Line x:Name="line" Stroke="LightGreen" StrokeThickness="3" IsHitTestVisible="False"/>
+        <Ellipse x:Name="ellipse" Fill="LightGray" MouseMove="ellipse_MouseMove" MouseLeftButtonUp="ellipse_MouseLeftButtonUp" MouseLeftButtonDown="ellipse_MouseLeftButtonDown"/>
+        <Ellipse Fill="#FF58A758" Width="10" Height="10" VerticalAlignment="Center" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+        <Line x:Name="line" Stroke="#FF58A758" StrokeThickness="3" IsHitTestVisible="False"/>
         <Canvas x:Name="canvas">
-            <Ellipse x:Name="ellipse_min_select" Fill="LightGreen" Visibility="Visible" IsHitTestVisible="False"/>
+            <Ellipse x:Name="ellipse_min_select" Fill="#FF58A758" Visibility="Visible" IsHitTestVisible="False"/>
         </Canvas>
         <ItemsControl x:Name="itemscontrol_hour_am" Visibility="Collapsed">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
-                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
-                        <TextBlock Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="{Binding Width}" Height="{Binding Height}"/>
+                        <TextBlock Foreground="Black" Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -43,8 +43,8 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
-                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
-                        <TextBlock Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Width="{Binding Width}" Height="{Binding Height}"/>
+                        <TextBlock Foreground="Gray" Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -64,7 +64,7 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
-                        <Ellipse Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
+                        <Ellipse Width="{Binding Width}" Height="{Binding Height}"/>
                         <TextBlock Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                     </Grid>
                 </DataTemplate>
