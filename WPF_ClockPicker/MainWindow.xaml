@@ -5,18 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_ClockPicker"
         mc:Ignorable="d"
-        xmlns:src="clr-namespace:WPF_ClockPicker" Background="Gray"
+        xmlns:src="clr-namespace:WPF_ClockPicker" Background="Black"
         Title="MainWindow" Height="500" Width="500">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <TextBox Text="{Binding SelectedTime, ElementName=clock_picker, UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox x:Name="checkbox_type" Click="checkbox_type_Click"></CheckBox>
-        </StackPanel>
-        
-        <src:QClockPicker Grid.Row="1" x:Name="clock_picker" Height="300" Width="300"/>
-    </Grid>
+    <TabControl>
+        <TabItem Header="123">
+        </TabItem>
+        <TabItem Header="123">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="{Binding SelectedTime, ElementName=clock_picker, UpdateSourceTrigger=PropertyChanged}"/>
+                    <CheckBox x:Name="checkbox_type" Click="checkbox_type_Click"></CheckBox>
+                </StackPanel>
+
+                <src:QClockPicker Grid.Row="1" x:Name="clock_picker" Height="300" Width="300"/>
+            </Grid>
+        </TabItem>
+    </TabControl>
+    
 </Window>

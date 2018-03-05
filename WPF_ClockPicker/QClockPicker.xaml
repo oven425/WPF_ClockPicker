@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:WPF_ClockPicker"
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              xmlns:src="clr-namespace:WPF_ClockPicker"
+             Width="300" Height="300"
              d:DesignHeight="500" d:DesignWidth="500">
     <UserControl.Resources>
         <src:CQBool2Brush x:Key="bool2brush"/>

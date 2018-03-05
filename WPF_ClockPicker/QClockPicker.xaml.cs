@@ -115,7 +115,7 @@ namespace WPF_ClockPicker
         List<CQClockData> m_Mins = new List<CQClockData>();
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            if(this.m_IsFirstLoad == true)
+            if((this.m_IsFirstLoad == true) && (this.IsVisible==true))
             {
                 this.m_IsFirstLoad = false;
                 for(int i=0; i<12; i++)
