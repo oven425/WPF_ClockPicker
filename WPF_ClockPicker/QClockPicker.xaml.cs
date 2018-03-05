@@ -65,6 +65,8 @@ namespace WPF_ClockPicker
                         this.itemscontrol_hour_am.Visibility = Visibility.Collapsed;
                         this.itemscontrol_hour_pm.Visibility = Visibility.Collapsed;
                         this.itemscontrol_min.Visibility = Visibility.Visible;
+                        this.textbox_min.Foreground = Brushes.Green;
+                        this.textbox_hour.Foreground = Brushes.Black;
                     }
                     break;
                 case QClockPick_OperateTypes.Hour:
@@ -73,6 +75,8 @@ namespace WPF_ClockPicker
                         this.itemscontrol_min.Visibility = Visibility.Collapsed;
                         this.itemscontrol_hour_am.Visibility = Visibility.Visible;
                         this.itemscontrol_hour_pm.Visibility = Visibility.Visible;
+                        this.textbox_min.Foreground = Brushes.Black;
+                        this.textbox_hour.Foreground = Brushes.Green;
                     }
                     break;
             }
@@ -140,14 +144,16 @@ namespace WPF_ClockPicker
                 this.itemscontrol_min.ItemsSource = this.m_Mins;
                 
                 
-                double center_x = this.ActualWidth / 2;
-                double center_y = this.ActualHeight / 2;
+                double center_x = this.ellipse.ActualWidth / 2;
+                double center_y = this.ellipse.ActualHeight / 2;
                 this.line.X1 = center_x;
                 this.line.Y1 = center_y;
 
                 this.ellipse_min_select.Width = this.m_Width;
                 this.ellipse_min_select.Height = this.m_Hieght;
 
+                this.textbox_hour.Text = this.SelectedTime.Hours.ToString();
+                this.textbox_min.Text = this.SelectedTime.Minutes.ToString();
                 this.UpdateOperateType();
                 this.UpdateTime();
             }
@@ -447,6 +453,32 @@ namespace WPF_ClockPicker
             //angle = angle - 90;
 
             return angle;
+        }
+
+        private void textbox_hour_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.ClockPickOperateType = QClockPick_OperateTypes.Hour;
+        }
+
+        private void textbox_min_GotFocus(object sender, RoutedEventArgs e)
+        {
+            this.ClockPickOperateType = QClockPick_OperateTypes.Min;
+        }
+
+        private void textbox_hour_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(this.m_IsStartDrag == false)
+            {
+
+            }
+        }
+
+        private void textbox_min_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(this.m_IsStartDrag == false)
+            {
+
+            }
         }
     }
 

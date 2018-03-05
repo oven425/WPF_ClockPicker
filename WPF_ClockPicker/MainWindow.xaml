@@ -21,7 +21,7 @@
                     <CheckBox x:Name="checkbox_type" Click="checkbox_type_Click"></CheckBox>
                 </StackPanel>
 
-                <src:QClockPicker Grid.Row="1" x:Name="clock_picker" Height="300" Width="300"/>
+                <src:QClockPicker Grid.Row="1" x:Name="clock_picker"/>
             </Grid>
         </TabItem>
     </TabControl>
