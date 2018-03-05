@@ -86,7 +86,7 @@ namespace WPF_ClockPicker
                     {
                         double angle = 360.0 / 60.0;
                         angle = angle * this.SelectedTime.Minutes;
-                        this.Angle2Pos(angle);
+                        this.Angle2Pos_Min(angle);
                     }
                     break;
                 case QClockPick_OperateTypes.Hour:
@@ -95,7 +95,7 @@ namespace WPF_ClockPicker
                         double angle = 360.0 / 12.0;
 
                         angle = angle * this.SelectedTime.Hours;
-                        this.Angle2Pos(angle);
+                        this.Angle2Pos_Hour(angle);
                     }
                     break;
             }
@@ -103,6 +103,7 @@ namespace WPF_ClockPicker
 
         double m_Width = 30;
         double m_Hieght = 30;
+        double m_Hour_PM_Margin = 50;
         public QClockPicker()
         {
             InitializeComponent();
@@ -128,9 +129,9 @@ namespace WPF_ClockPicker
                 this.Calac_Hour(radus, this.m_Hours_AM, true);
                 this.itemscontrol_hour_am.ItemsSource = this.m_Hours_AM;
 
-                radus = (this.ellipse.ActualWidth-100) / 2;
+                radus = (this.ellipse.ActualWidth- this.m_Hour_PM_Margin*2) / 2;
                 radus = radus - this.m_Width / 2;
-                this.Calac_Hour(radus, this.m_Hours_PM, false, 50);
+                this.Calac_Hour(radus, this.m_Hours_PM, false, this.m_Hour_PM_Margin);
                 this.itemscontrol_hour_pm.ItemsSource = this.m_Hours_PM;
 
                 radus = this.ellipse.ActualWidth / 2;
@@ -204,50 +205,70 @@ namespace WPF_ClockPicker
             }
         }
 
-
-        void Angle2Pos(double angle)
+        void Angle2Pos_Min(double angle)
         {
             angle = angle - 90;
-
             double radain = Math.PI * angle / 180;
-            
-            switch (this.ClockPickOperateType)
-            {
-                case QClockPick_OperateTypes.Min:
-                    {
-                        float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
-                        float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
-                        Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
-                        Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
-                        this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
-                        this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
-                    }
-                    break;
-                case QClockPick_OperateTypes.Hour:
-                default:
-                    {
-                        if (this.SelectedTime.Hours > 12)
-                        {
-                            float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
-                            float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
-                            Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
-                            Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
-                            this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
-                            this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
-                        }
-                        else
-                        {
-                            float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
-                            float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
-                            Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
-                            Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
-                            this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
-                            this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
-                        }
-                    }
-                    break;
-            }
+            float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
+            float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
+            Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+            Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+            this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+            this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+        }
 
+        void Angle2Pos_Hour(double angle)
+        {
+            angle = angle - 90;
+            double radain = Math.PI * angle / 180;
+            if ((this.SelectedTime.Hours > 12) || (this.SelectedTime.Hours == 0))
+            {
+                double radus = (this.ellipse.ActualWidth - this.m_Hour_PM_Margin * 2) / 2;
+                radus = radus - this.m_Width / 2;
+                this.itemscontrol_hour_pm.ItemsSource = this.m_Hours_PM;
+                float x1 = (float)(Math.Cos(radain) * radus);
+                float y1 = (float)(Math.Sin(radain) * radus);
+                Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+                Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+                this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+                this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+            }
+            else
+            {
+                float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
+                float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
+                Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+                Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+                this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+                this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+            }
+        }
+
+        void Angle2Pos_Hour_Move(double angle)
+        {
+            angle = angle - 90;
+            double radain = Math.PI * angle / 180;
+            if ((this.SelectedTime.Hours > 12) || (this.SelectedTime.Hours == 0))
+            {
+                double radus = (this.ellipse.ActualWidth - this.m_Hour_PM_Margin * 2) / 2;
+                radus = radus - this.m_Width / 2;
+                this.itemscontrol_hour_pm.ItemsSource = this.m_Hours_PM;
+                float x1 = (float)(Math.Cos(radain) * radus);
+                float y1 = (float)(Math.Sin(radain) * radus);
+                Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+                Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+                this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+                this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+            }
+            else
+            {
+                float x1 = (float)(Math.Cos(radain) * (this.ellipse.ActualWidth / 2 - this.m_Width / 2));
+                float y1 = (float)(Math.Sin(radain) * (this.ellipse.ActualHeight / 2 - this.m_Hieght / 2));
+                Canvas.SetLeft(ellipse_min_select, x1 + this.ellipse.ActualWidth / 2 - this.m_Width / 2);
+                Canvas.SetTop(ellipse_min_select, y1 + this.ellipse.ActualHeight / 2 - this.m_Hieght / 2);
+                this.line.X2 = x1 + this.ellipse.ActualWidth / 2;
+                this.line.Y2 = y1 + this.ellipse.ActualHeight / 2;
+            }
         }
 
         private void ellipse_MouseMove(object sender, MouseEventArgs e)
@@ -255,6 +276,7 @@ namespace WPF_ClockPicker
             Point pt = e.GetPosition(this.ellipse);
             if(this.m_IsStartDrag == true)
             {
+                double angle = this.GetAngle(this.ellipse, pt);
                 double distance = this.GetDistane(this.ellipse, pt);
                 switch(this.ClockPickOperateType)
                 {
@@ -263,21 +285,41 @@ namespace WPF_ClockPicker
                             if (distance > 50)
                             {
                                 
-                                double angle = this.GetAngle(this.ellipse, pt);
 
                                 double min = angle * 60 / 360;
                                 if(this.SelectedTime.Minutes != min)
                                 {
                                     this.SelectedTime = new TimeSpan(this.SelectedTime.Hours, (int)min, 0);
                                 }
-                                this.Angle2Pos(angle);
+                                this.Angle2Pos_Min(angle);
                             }
                             
                         }
                         break;
                     case QClockPick_OperateTypes.Hour:
                         {
+                            double hour_1 = angle * 12 / 360;
+                            int hour = (int)hour_1;
+                            if(hour > 0)
+                            {
+                                if (distance < 100)
+                                {
+                                    hour = hour + 12;
+                                }
+                            }
+                            else
+                            {
+                                if (distance > 100)
+                                {
+                                    hour = hour + 12;
+                                }
+                            }
 
+                            if (this.SelectedTime.Hours != hour)
+                            {
+                                this.SelectedTime = new TimeSpan((int)hour, this.SelectedTime.Minutes, 0);
+                            }
+                            this.Angle2Pos_Hour_Move(angle);
                         }
                         break;
                 }
@@ -285,6 +327,8 @@ namespace WPF_ClockPicker
             }
             
         }
+
+
 
         double GetAngle(double x, double y)
         {
@@ -309,32 +353,58 @@ namespace WPF_ClockPicker
 
         private void ellipse_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            Point pt = e.GetPosition(this.ellipse);
             if(this.m_IsStartDrag == true)
             {
+                double distance = this.GetDistane(this.ellipse, pt);
+                double angle = this.GetAngle(this.ellipse, pt);
+
+                switch (this.ClockPickOperateType)
+                {
+                    case QClockPick_OperateTypes.Min:
+                        {
+                            if(distance > 80)
+                            {
+                                double min = angle * 60 / 360;
+                                if (this.SelectedTime.Minutes != min)
+                                {
+                                    this.SelectedTime = new TimeSpan(this.SelectedTime.Hours, (int)min, 0);
+                                }
+                                this.Angle2Pos_Min(angle);
+                            }
+                        }
+                        break;
+                    case QClockPick_OperateTypes.Hour:
+                    default:
+                        {
+                            double hour_1 = angle * 12 / 360;
+                            int hour = (int)hour_1;
+                            if (hour > 0)
+                            {
+                                if (distance < 100)
+                                {
+                                    hour = hour + 12;
+                                }
+                            }
+                            else
+                            {
+                                if (distance > 100)
+                                {
+                                    hour = hour + 12;
+                                }
+                            }
+                            if (this.SelectedTime.Hours != hour)
+                            {
+                                this.SelectedTime = new TimeSpan((int)hour, this.SelectedTime.Minutes, 0);
+                            }
+                            double angle1 = 360.0 / 12.0;
+                            angle1 = angle1 * this.SelectedTime.Hours;
+                            this.Angle2Pos_Hour_Move(angle1);
+
+                        }
+                        break;
+                }
                 this.m_IsStartDrag = false;
-                double angle = this.GetAngle(this.ellipse, e.GetPosition(this.ellipse));
-                angle = angle - 15;
-                if(angle < 0)
-                {
-                    angle = 360.0 - angle;
-                }
-
-
-
-                System.Diagnostics.Trace.WriteLine(angle);
-                int dd = (int)(angle / 30.0);
-
-
-
-                //System.Diagnostics.Trace.WriteLine(string.Format("{0}  {1}", angle, dd));
-
-                dd = dd - 3;
-                if(dd <0)
-                {
-                    dd = this.m_Hours_AM.Count + dd;
-                }
-                //this.m_Hours_AM[dd].IsSelected = true;
-                
                 this.ellipse.ReleaseMouseCapture();
             }
         }

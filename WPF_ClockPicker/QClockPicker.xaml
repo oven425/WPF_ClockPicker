@@ -22,7 +22,7 @@
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
                         <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
-                        <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -44,7 +44,7 @@
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
                         <Ellipse Fill="{Binding IsSelected, Converter={StaticResource bool2brush}}" Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
-                        <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
@@ -65,7 +65,7 @@
                 <DataTemplate>
                     <Grid IsHitTestVisible="False">
                         <Ellipse Stroke="Gray" StrokeThickness="1" Width="{Binding Width}" Height="{Binding Height}"/>
-                        <TextBlock Text="{Binding Value}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Value, StringFormat=D2}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" />
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
