@@ -16,15 +16,15 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid HorizontalAlignment="Center">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="textbox_hour" GotFocus="textbox_hour_GotFocus" FontWeight="Bold" FontSize="20" TextChanged="textbox_hour_TextChanged"/>
-            <TextBlock Grid.Column="1" Text=":" Margin="5,0,5,0"/>
-            <TextBox Grid.Column="2" x:Name="textbox_min" GotFocus="textbox_min_GotFocus" FontWeight="Bold" FontSize="20" TextChanged="textbox_min_TextChanged"/>
+            <TextBlock x:Name="textblock_hour" Background="Transparent" MouseLeftButtonDown="textblock_hour_MouseLeftButtonDown" Grid.Column="0" Text="00" FontSize="23" FontWeight="Bold"/>
+            <TextBlock Text=":" Grid.Column="1" FontSize="23" FontWeight="Bold"/>
+            <TextBlock x:Name="textblock_min" Background="Transparent" MouseLeftButtonDown="textblock_min_MouseLeftButtonDown" Grid.Column="2" Text="00" FontSize="23" FontWeight="Bold"/>
         </Grid>
         <Grid x:Name="grid" Grid.Row="1" Width="300" Height="300">
             <Ellipse x:Name="ellipse" Fill="LightGray" MouseMove="ellipse_MouseMove" MouseLeftButtonUp="ellipse_MouseLeftButtonUp" MouseLeftButtonDown="ellipse_MouseLeftButtonDown"/>

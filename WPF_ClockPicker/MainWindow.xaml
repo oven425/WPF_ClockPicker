@@ -7,23 +7,16 @@
         mc:Ignorable="d"
         xmlns:src="clr-namespace:WPF_ClockPicker" Background="Black"
         Title="MainWindow" Height="500" Width="500">
-    <TabControl>
-        <TabItem Header="123">
-        </TabItem>
-        <TabItem Header="123">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal">
-                    <TextBox Text="{Binding SelectedTime, ElementName=clock_picker, UpdateSourceTrigger=PropertyChanged}"/>
-                    <CheckBox x:Name="checkbox_type" Click="checkbox_type_Click"></CheckBox>
-                </StackPanel>
+    <Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition/>
+    </Grid.RowDefinitions>
+    <StackPanel Orientation="Horizontal">
+        <TextBox Text="{Binding SelectedTime, ElementName=clock_picker, UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox x:Name="checkbox_type" Click="checkbox_type_Click"></CheckBox>
+    </StackPanel>
 
-                <src:QClockPicker Grid.Row="1" x:Name="clock_picker"/>
-            </Grid>
-        </TabItem>
-    </TabControl>
-    
+    <src:QClockPicker Grid.Row="1" x:Name="clock_picker"/>
+    </Grid>
 </Window>

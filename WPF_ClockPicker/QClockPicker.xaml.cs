@@ -65,8 +65,8 @@ namespace WPF_ClockPicker
                         this.itemscontrol_hour_am.Visibility = Visibility.Collapsed;
                         this.itemscontrol_hour_pm.Visibility = Visibility.Collapsed;
                         this.itemscontrol_min.Visibility = Visibility.Visible;
-                        this.textbox_min.Foreground = Brushes.Green;
-                        this.textbox_hour.Foreground = Brushes.Black;
+                        this.textblock_min.Foreground = Brushes.Green;
+                        this.textblock_hour.Foreground = Brushes.Gray;
                     }
                     break;
                 case QClockPick_OperateTypes.Hour:
@@ -75,8 +75,8 @@ namespace WPF_ClockPicker
                         this.itemscontrol_min.Visibility = Visibility.Collapsed;
                         this.itemscontrol_hour_am.Visibility = Visibility.Visible;
                         this.itemscontrol_hour_pm.Visibility = Visibility.Visible;
-                        this.textbox_min.Foreground = Brushes.Black;
-                        this.textbox_hour.Foreground = Brushes.Green;
+                        this.textblock_min.Foreground = Brushes.Gray;
+                        this.textblock_hour.Foreground = Brushes.Green;
                     }
                     break;
             }
@@ -91,6 +91,7 @@ namespace WPF_ClockPicker
                         double angle = 360.0 / 60.0;
                         angle = angle * this.SelectedTime.Minutes;
                         this.Angle2Pos_Min(angle);
+                        this.textblock_min.Text = this.SelectedTime.Minutes.ToString("D2");
                     }
                     break;
                 case QClockPick_OperateTypes.Hour:
@@ -100,9 +101,10 @@ namespace WPF_ClockPicker
 
                         angle = angle * this.SelectedTime.Hours;
                         this.Angle2Pos_Hour(angle);
+                        this.textblock_hour.Text = this.SelectedTime.Hours.ToString("D2");
                     }
                     break;
-            }
+            }            
         }
 
         double m_Width = 30;
@@ -152,8 +154,7 @@ namespace WPF_ClockPicker
                 this.ellipse_min_select.Width = this.m_Width;
                 this.ellipse_min_select.Height = this.m_Hieght;
 
-                this.textbox_hour.Text = this.SelectedTime.Hours.ToString();
-                this.textbox_min.Text = this.SelectedTime.Minutes.ToString();
+                
                 this.UpdateOperateType();
                 this.UpdateTime();
             }
@@ -296,6 +297,7 @@ namespace WPF_ClockPicker
                                 if(this.SelectedTime.Minutes != min)
                                 {
                                     this.SelectedTime = new TimeSpan(this.SelectedTime.Hours, (int)min, 0);
+                                    this.textblock_min.Text = this.SelectedTime.Minutes.ToString("D2");
                                 }
                                 this.Angle2Pos_Min(angle);
                             }
@@ -324,6 +326,7 @@ namespace WPF_ClockPicker
                             if (this.SelectedTime.Hours != hour)
                             {
                                 this.SelectedTime = new TimeSpan((int)hour, this.SelectedTime.Minutes, 0);
+                                this.textblock_hour.Text = this.SelectedTime.Hours.ToString("D2");
                             }
                             this.Angle2Pos_Hour_Move(angle);
                         }
@@ -375,6 +378,7 @@ namespace WPF_ClockPicker
                                 if (this.SelectedTime.Minutes != min)
                                 {
                                     this.SelectedTime = new TimeSpan(this.SelectedTime.Hours, (int)min, 0);
+                                    this.textblock_min.Text = this.SelectedTime.Minutes.ToString("D2");
                                 }
                                 this.Angle2Pos_Min(angle);
                             }
@@ -407,6 +411,7 @@ namespace WPF_ClockPicker
                             if (this.SelectedTime.Hours != hour)
                             {
                                 this.SelectedTime = new TimeSpan((int)hour, this.SelectedTime.Minutes, 0);
+                                this.textblock_hour.Text = this.SelectedTime.Hours.ToString("D2");
                             }
                             double angle1 = 360.0 / 12.0;
                             angle1 = angle1 * this.SelectedTime.Hours;
@@ -455,30 +460,14 @@ namespace WPF_ClockPicker
             return angle;
         }
 
-        private void textbox_hour_GotFocus(object sender, RoutedEventArgs e)
+        private void textblock_hour_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.ClockPickOperateType = QClockPick_OperateTypes.Hour;
         }
 
-        private void textbox_min_GotFocus(object sender, RoutedEventArgs e)
+        private void textblock_min_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.ClockPickOperateType = QClockPick_OperateTypes.Min;
-        }
-
-        private void textbox_hour_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if(this.m_IsStartDrag == false)
-            {
-
-            }
-        }
-
-        private void textbox_min_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if(this.m_IsStartDrag == false)
-            {
-
-            }
         }
     }
 
