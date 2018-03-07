@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -124,42 +123,47 @@ namespace WPF_ClockPicker
             if((this.m_IsFirstLoad == true) && (this.IsVisible==true))
             {
                 this.m_IsFirstLoad = false;
-                for(int i=0; i<12; i++)
-                {
-                    this.m_Hours_AM.Add(new CQClockData() { Width=this.m_Width, Height=this.m_Hieght});
-                    this.m_Hours_PM.Add(new CQClockData() { Width = this.m_Width, Height = this.m_Hieght });
-                    this.m_Mins.Add(new CQClockData() { Width = this.m_Width, Height = this.m_Hieght });
-                }
-                double radus = this.ellipse.ActualWidth / 2;
-                radus = radus - this.m_Width/2;
-                this.Calac_Hour(radus, this.m_Hours_AM, true);
-                this.itemscontrol_hour_am.ItemsSource = this.m_Hours_AM;
-
-                radus = (this.ellipse.ActualWidth- this.m_Hour_PM_Margin*2) / 2;
-                radus = radus - this.m_Width / 2;
-                this.Calac_Hour(radus, this.m_Hours_PM, false, this.m_Hour_PM_Margin);
-                this.itemscontrol_hour_pm.ItemsSource = this.m_Hours_PM;
-
-                radus = this.ellipse.ActualWidth / 2;
-                radus = radus - this.m_Width / 2;
-                this.Calac_Min(radus, this.m_Mins);
-                this.itemscontrol_min.ItemsSource = this.m_Mins;
-                
-                
-                double center_x = this.ellipse.ActualWidth / 2;
-                double center_y = this.ellipse.ActualHeight / 2;
-                this.line.X1 = center_x;
-                this.line.Y1 = center_y;
-
-                this.ellipse_min_select.Width = this.m_Width;
-                this.ellipse_min_select.Height = this.m_Hieght;
+                this.FirstLoad();
 
                 
                 this.UpdateOperateType();
                 this.UpdateTime();
             }
-            
-            
+        }
+
+        void FirstLoad()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                this.m_Hours_AM.Add(new CQClockData() { Width = this.m_Width, Height = this.m_Hieght });
+                this.m_Hours_PM.Add(new CQClockData() { Width = this.m_Width, Height = this.m_Hieght });
+                this.m_Mins.Add(new CQClockData() { Width = this.m_Width, Height = this.m_Hieght });
+            }
+            double radus = this.ellipse.ActualWidth / 2;
+            radus = radus - this.m_Width / 2;
+            this.Calac_Hour(radus, this.m_Hours_AM, true);
+            this.itemscontrol_hour_am.ItemsSource = this.m_Hours_AM;
+
+            radus = (this.ellipse.ActualWidth - this.m_Hour_PM_Margin * 2) / 2;
+            radus = radus - this.m_Width / 2;
+            this.Calac_Hour(radus, this.m_Hours_PM, false, this.m_Hour_PM_Margin);
+            this.itemscontrol_hour_pm.ItemsSource = this.m_Hours_PM;
+
+            radus = this.ellipse.ActualWidth / 2;
+            radus = radus - this.m_Width / 2;
+            this.Calac_Min(radus, this.m_Mins);
+            this.itemscontrol_min.ItemsSource = this.m_Mins;
+
+
+            double center_x = this.ellipse.ActualWidth / 2;
+            double center_y = this.ellipse.ActualHeight / 2;
+            this.line.X1 = center_x;
+            this.line.Y1 = center_y;
+
+            this.ellipse_min_select.Width = this.m_Width;
+            this.ellipse_min_select.Height = this.m_Hieght;
+            this.UpdateOperateType();
+            this.UpdateTime();
         }
 
         void Calac_Min(double radus, List<CQClockData> datas, double offset = 0)
@@ -468,6 +472,15 @@ namespace WPF_ClockPicker
         private void textblock_min_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.ClockPickOperateType = QClockPick_OperateTypes.Min;
+        }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if(this.m_IsFirstLoad == true)
+            {
+                this.m_IsFirstLoad = false;
+                this.FirstLoad();
+            }
         }
     }
 

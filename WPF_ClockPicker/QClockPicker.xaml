@@ -7,7 +7,7 @@
              mc:Ignorable="d" Loaded="UserControl_Loaded"
              xmlns:src="clr-namespace:WPF_ClockPicker"
              
-             d:DesignHeight="500" d:DesignWidth="500">
+             d:DesignHeight="500" d:DesignWidth="500" SizeChanged="UserControl_SizeChanged">
     <UserControl.Resources>
         <src:CQBool2Brush x:Key="bool2brush"/>
     </UserControl.Resources>
