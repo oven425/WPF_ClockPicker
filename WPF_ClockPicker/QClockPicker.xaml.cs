@@ -81,6 +81,30 @@ namespace WPF_ClockPicker
             }
         }
 
+        public static Point GetCoordinate(int a, int b, float rotate)
+        {
+            double x = 0, y = 0, tan = 0, Rad = 0;
+
+            if (Math.Abs(rotate) > 90)
+                Rad = (Math.Abs(rotate) - 90);
+            else
+                Rad = (90 - Math.Abs(rotate));
+            Rad = Rad * 2 * Math.PI / 360;
+            tan = Math.Tan(Rad);
+
+            x = Math.Sqrt((double)1 / ((double)1 / (a * a) + (tan * tan) / (b * b)));
+            y = x * tan;
+
+            if (rotate < 0)
+                x = 0 - x;
+            if (rotate > -90 && rotate < 90)
+                y = 0 - y;
+            x = a + x;
+            y = b + y;
+
+            return new Point((int)Math.Round(x), (int)Math.Round(y));
+        }
+
         void UpdateTime()
         {
             switch (this.ClockPickOperateType)

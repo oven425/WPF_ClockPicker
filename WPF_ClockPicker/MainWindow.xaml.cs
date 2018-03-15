@@ -37,5 +37,10 @@ namespace WPF_ClockPicker
             }
             
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
