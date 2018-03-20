@@ -81,7 +81,7 @@ namespace WPF_ClockPicker
             }
         }
 
-        public static Point GetCoordinate(int a, int b, float rotate)
+        Point GetCoordinate(int a, int b, float rotate)
         {
             double x = 0, y = 0, tan = 0, Rad = 0;
 
@@ -102,7 +102,7 @@ namespace WPF_ClockPicker
             x = a + x;
             y = b + y;
 
-            return new Point((int)Math.Round(x), (int)Math.Round(y));
+            return new Point(Math.Round(x), Math.Round(y));
         }
 
         void UpdateTime()
