@@ -9,7 +9,11 @@
         Title="MainWindow" Height="500" Width="500" Loaded="Window_Loaded">
     <TabControl>
         <TabItem Header="AA">
-            <Ellipse x:Name="ellipse" Stroke="Red" StrokeThickness="1" Width="200" Height="80"/>
+            <Grid>
+                <Ellipse x:Name="ellipse" Stroke="Red" StrokeThickness="1" Width="200" Height="80"/>
+                <Canvas x:Name="canvas"/>
+            </Grid>
+            
         </TabItem>
         <TabItem Header="Clock">
             <Grid>
